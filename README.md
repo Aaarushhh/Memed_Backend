@@ -53,6 +53,14 @@ Signup/login responses: `{ data: { token, user }, message }`. Send `Authorizatio
 
 `platform`: `Instagram` or `YouTube`. New campaigns are live by default. `budgetSpent` starts at `0` (updated when submission views change).
 
+## Creator API
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | `/api/campaigns/live` | Creator JWT | List live campaigns |
+| POST | `/api/submissions` | Creator JWT | Submit post: `{ campaignId, postUrl }` |
+| GET | `/api/submissions/earnings` | Creator JWT | Total earnings |
+
 ## Environment
 
 See `.env.example` for required variables.

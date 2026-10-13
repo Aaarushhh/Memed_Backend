@@ -73,6 +73,36 @@ class CampaignController {
       );
     }
   };
+
+  listLive: RequestHandler = async (req, res, next) => {
+    try {
+      const campaigns = await CampaignModel.find({ isLive: true });
+
+      res.status(HttpStatusCode.OK).json({
+        data: {
+          campaigns: campaigns.map((campaign) => ({
+            id: campaign._id.toString(),
+            name: campaign.name,
+            platform: campaign.platform,
+            totalBudget: campaign.totalBudget,
+            milestones: campaign.milestones,
+            budgetSpent: campaign.budgetSpent,
+            budgetRemaining: campaign.totalBudget - campaign.budgetSpent,
+            isLive: campaign.isLive,
+          })),
+        },
+        message: "Live campaigns fetched successfully",
+      });
+    } catch (error) {
+      console.error("Error in listLive:", error);
+      next(
+        new CustomError(
+          "Unable to fetch live campaigns. Please try again later.",
+          HttpStatusCode.SERVICE_UNAVAILABLE
+        )
+      );
+    }
+  };
 }
 
 export default new CampaignController();

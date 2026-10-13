@@ -8,6 +8,13 @@ import { createCampaignSchema } from "../../validator/campaignSchema";
 
 const router = express.Router();
 
+router.get(
+  "/live",
+  authenticate,
+  authorize(UserRole.CREATOR),
+  CampaignController.listLive
+);
+
 router.post(
   "/",
   authenticate,
