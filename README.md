@@ -18,12 +18,14 @@ Health check: `GET http://localhost:<PORT>/api/ping`
 src/
 ├── config/              # Env / app config
 ├── controller/          # Route handlers (class controllers)
-│   └── auth/
+│   ├── auth/
+│   └── campaign/
 ├── lib/                 # DB clients (mongoose)
 ├── middleware/          # auth, authorize, validate, errors
 ├── model/               # Mongoose models
 ├── routes/              # Express routes
-│   └── auth/
+│   ├── auth/
+│   └── campaign/
 ├── util/
 │   ├── enum/
 │   ├── helper/
@@ -41,6 +43,15 @@ src/
 | GET | `/api/auth/me` | Bearer JWT | Current user |
 
 Signup/login responses: `{ data: { token, user }, message }`. Send `Authorization: Bearer <token>` on protected routes.
+
+## Brand / Campaign API
+
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/api/campaigns` | Brand JWT | Create campaign: `{ name, platform, totalBudget, milestones: [{ views, payout }] }` |
+| GET | `/api/campaigns` | Brand JWT | List own campaigns with `budgetSpent` and `budgetRemaining` |
+
+`platform`: `Instagram` or `YouTube`. New campaigns are live by default. `budgetSpent` starts at `0` (updated when submission views change).
 
 ## Environment
 
