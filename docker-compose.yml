@@ -1,0 +1,13 @@
+services:
+  memed-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: memed-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+    restart: unless-stopped
