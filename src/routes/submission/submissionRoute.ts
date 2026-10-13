@@ -4,7 +4,10 @@ import { authenticate } from "../../middleware/authenticate";
 import { authorize } from "../../middleware/authorize";
 import { validateRequest } from "../../middleware/validateRequest";
 import { UserRole } from "../../util/enum/common.enum";
-import { createSubmissionSchema } from "../../validator/submissionSchema";
+import {
+  createSubmissionSchema,
+  updateViewsSchema,
+} from "../../validator/submissionSchema";
 
 const router = express.Router();
 
@@ -21,6 +24,12 @@ router.get(
   authenticate,
   authorize(UserRole.CREATOR),
   SubmissionController.earnings
+);
+
+router.patch(
+  "/:id/views",
+  validateRequest({ schema: updateViewsSchema }),
+  SubmissionController.updateViews
 );
 
 export default router;
